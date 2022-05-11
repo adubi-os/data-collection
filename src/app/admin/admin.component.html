@@ -1,0 +1,522 @@
+<nav class="navbar navbar-expand-md fixed-top">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/"><span class="badge-logo">A</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li> -->
+            </ul>
+            <div class="d-flex">
+                <h6 class="mt-2">Welcome back, Admin</h6>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container main">
+    <p-toast></p-toast>
+    <div class="row mb-2" style="display: inline-block;">
+        <p-button (click)="showModalDialog()" label="Create CSO" icon="pi pi-plus"></p-button>
+        <p-button (click)="showModalDialog3()" label="Create Supervisor" icon="pi pi-plus"></p-button>
+
+        <!-- <div class="col-sm-4">
+            <div class="form-group">
+                <label for="Status" style="color: #e41d74; font-weight: 900; font-size: 14px;">
+                    {{"Status"}}
+                    <span>*</span>
+                </label>
+                <ng-select placeholder="Select Status" (change)="onSelectedStatus($event)" [(ngModel)]="selectedStatus"
+                    #statusInput="ngModel" name="Status" [closeOnSelect]="true" [clearable]="false" [searchable]="false"
+                    required>
+                    <ng-option [value]="'Pending'">
+                        Pending
+                    </ng-option>
+                    <ng-option [value]="'Approved'">
+                        Approved
+                    </ng-option>
+                    <ng-option [value]="'Rejected'">
+                        Rejected
+                    </ng-option>
+                </ng-select>
+            </div>
+        </div> -->
+    </div>
+    <p-dialog header="Add New CSO" [(visible)]="displayModal" [modal]="true" [breakpoints]="{'960px': '75vw'}"
+        [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+        <form #csoForm="ngForm" novalidate>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="FullName">{{"Full Name"}} *</label>
+                        <input id="FullName" #FullNameInput="ngModel" type="text" name="FullName" class="form-control"
+                            [(ngModel)]="fullName" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="SupervisorName">{{"Supervisor Name"}} *</label>
+                        <ng-select [(ngModel)]="supervisorName" #SupervisorNameaseTypeInput="ngModel"
+                            name="SupervisorName" [closeOnSelect]="true" [clearable]="false" [searchable]="true"
+                            required>
+                            <ng-option [value]="'Johnson Cutris'">
+                                Johnson Cutris
+                            </ng-option>
+                            <ng-option [value]="'Saka Dayo'">
+                                Saka Dayo
+                            </ng-option>
+                            <ng-option [value]="'Raphael Bill'">
+                                Raphael Bill
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="csoEmail">{{"Email"}} *</label>
+                        <input id="csoEmail" #emailInput="ngModel" type="email" name="email" class="form-control"
+                            [(ngModel)]="email" required>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="csoPhone">{{"Phone Number"}} *</label>
+                        <input id="csoPhone" #phoneInput="ngModel" type="text" name="phone" class="form-control"
+                            [(ngModel)]="phone" required>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button type="submit" icon="pi pi-check" label="Submit" styleClass="p-button-text"
+                [disabled]="!csoForm.form.valid" (onClick)="submit(csoForm)"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog header="Add New Supervisor" [(visible)]="displayModal3" [modal]="true" [breakpoints]="{'960px': '75vw'}"
+        [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+        <form #supervisorForm="ngForm" novalidate>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="supervisorFullName">{{"Full Name"}} *</label>
+                        <input id="supervisorFullName" #supervisorFullNameInput="ngModel" type="text"
+                            name="supervisorFullName" class="form-control" [(ngModel)]="supervisorFullName" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="supervisorEmail">{{"Email"}} *</label>
+                        <input id="supervisorEmail" #supervisorEmailInput="ngModel" type="email" name="supervisorEmail"
+                            class="form-control" [(ngModel)]="supervisorEmail" required>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="supervisorPhone">{{"Phone Number"}} *</label>
+                        <input id="supervisorPhone" #supervisorPhoneInput="ngModel" type="text" name="supervisorPhone"
+                            class="form-control" [(ngModel)]="supervisorPhone" required>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button type="submit" icon="pi pi-check" label="Submit" styleClass="p-button-text"
+                [disabled]="!supervisorForm.form.valid" (onClick)="submit2(supervisorForm)"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog header="" [(visible)]="displayModal2" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+        [resizable]="false">
+        <p class="m-0 text-center">CSO Added Successfully!
+        </p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal2=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog header="" [(visible)]="displayModal4" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+        [resizable]="false">
+        <p class="m-0 text-center">Supervisor Added Successfully!
+        </p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal4=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <!-- [(selection)]=" selectedCustomers" dataKey="id" -->
+    <p-table #dt [value]="cases" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0" [resizableColumns]="true" [autoLayout]="true"
+        [globalFilterFields]="['type','subject','description','candidateName','candidateEmail','candidatePhone','candidateGender','priority','status']">
+        <ng-template pTemplate="caption">
+            <div class="table-header row align-items-center">
+                <div class="col-lg-6 col-sm-12">
+                    <h4 style="color: #c9296d;">Submitted Cases</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 text-end">
+                    <span class="p-input-icon-left" style="text-align: right;">
+                        <i class="pi pi-search"></i>
+                        <!-- (input)="dt.filterGlobal($event.target.value, 'contains')" -->
+                        <input pInputText type="text" placeholder="Global Search" />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+                <!-- <th pSortableColumn="actions">
+                    <div class="flex justify-content-between align-items-center">
+                        Actions
+                        <p-sortIcon field="actions"></p-sortIcon>
+                    </div>
+                </th> -->
+                <th pSortableColumn="cso">
+                    <div class="flex justify-content-between align-items-center">
+                        CSO
+                        <p-sortIcon field="cso"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="type">
+                    <div class="flex justify-content-between align-items-center">
+                        Type
+                        <p-sortIcon field="type"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="subject">
+                    <div class="flex justify-content-between align-items-center">
+                        Subject
+                        <p-sortIcon field="subject"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="description">
+                    <div class="flex justify-content-between align-items-center">
+                        Description
+                        <p-sortIcon field="description"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateName">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Name
+                        <p-sortIcon field="candidateName"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateEmail">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Email
+                        <p-sortIcon field="candidateEmail"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidatePhone">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Phone
+                        <p-sortIcon field="candidatePhone"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateGender">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Gender
+                        <p-sortIcon field="candidateGender"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="status">
+                    <div class="flex justify-content-between align-items-center">
+                        Status
+                        <p-sortIcon field="status"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="priority">
+                    <div class="flex justify-content-between align-items-center">
+                        Priority
+                        <p-sortIcon field="priority"></p-sortIcon>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cases>
+            <tr class="p-selectable-row">
+                <!-- <td>
+                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                </td> -->
+                <!-- <td>
+                    <span class="p-column-title">Actions</span>
+                    <div class="btn-group" dropdown>
+                        <button id="button-animated" dropdownToggle type="button"
+                            class="btn btn-primary dropdown-toggle" aria-controls="dropdown-animated">
+                            Button dropdown <span class="caret"></span>
+                        </button>
+                        <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                            aria-labelledby="button-animated">
+                            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a>
+                            </li>
+                            <li role="menuitem"><a class="dropdown-item" href="#">Something else
+                                    here</a></li>
+                        </ul>
+                    </div>
+                </td> -->
+                <td>
+                    <span class="p-column-title">CSO</span>
+                    {{cases.cso}}
+                </td>
+                <td>
+                    <span class="p-column-title">Type</span>
+                    {{cases.type}}
+                </td>
+                <td>
+                    <span class="p-column-title">Subject</span>
+                    {{cases.subject}}
+                </td>
+                <td>
+                    <span class="p-column-title">Description</span>
+                    {{cases.description}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Name</span>
+                    {{cases.candidateName}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Email</span>
+                    {{cases.candidateEmail}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Phone</span>
+                    {{cases.candidatePhone}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Gender</span>
+                    {{cases.candidateGender}}
+                </td>
+                <td>
+                    <span class="p-column-title">Status</span>
+                    <!-- {{cases.status}} -->
+                    <span class="badge bg-secondary" *ngIf="cases.status === 'Pending'">{{'Pending'}}</span>
+                    <span class="badge bg-success" *ngIf="cases.status === 'Approved'">{{'Approved'}}</span>
+                    <span class="badge bg-danger" *ngIf="cases.status === 'Rejected'">{{'Rejected'}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Priority</span>
+                    <!-- {{cases.priority}} -->
+                    <span class="badge bg-danger" *ngIf="cases.priority === 'High'">{{'High'}}</span>
+                    <span class="badge bg-dark" *ngIf="cases.priority === 'Medium'">{{'Medium'}}</span>
+                    <span class="badge bg-secondary" *ngIf="cases.priority === 'Low'">{{'Low'}}</span>
+                </td>
+                <!-- <td>
+                    <span class="p-column-title">Date</span>
+                    {{customer.date | date: 'MM/dd/yyyy'}}
+                </td>
+                <td>
+                    {{customer.balance | currency:'USD':'symbol'}}
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No cases found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <br>
+    <br>
+    <p-table #dt2 [value]="cases2" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0" [resizableColumns]="true" [autoLayout]="true"
+        [globalFilterFields]="['type','subject','description','candidateName','candidateEmail','candidatePhone','candidateGender','priority','status']">
+        <ng-template pTemplate="caption">
+            <div class="table-header row align-items-center">
+                <div class="col-lg-6 col-sm-12">
+                    <h4 style="color: #c9296d;">Validated Cases</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 text-end">
+                    <span class="p-input-icon-left" style="text-align: right;">
+                        <i class="pi pi-search"></i>
+                        <!-- (input)="dt.filterGlobal($event.target.value, 'contains')" -->
+                        <input pInputText type="text" placeholder="Global Search" />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th style="width: 3rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th> -->
+                <!-- <th pSortableColumn="actions">
+                        <div class="flex justify-content-between align-items-center">
+                            Actions
+                            <p-sortIcon field="actions"></p-sortIcon>
+                        </div>
+                    </th> -->
+                <th pSortableColumn="supervisor">
+                    <div class="flex justify-content-between align-items-center">
+                        Supervisor
+                        <p-sortIcon field="supervisor"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="type">
+                    <div class="flex justify-content-between align-items-center">
+                        Type
+                        <p-sortIcon field="type"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="subject">
+                    <div class="flex justify-content-between align-items-center">
+                        Subject
+                        <p-sortIcon field="subject"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="description">
+                    <div class="flex justify-content-between align-items-center">
+                        Description
+                        <p-sortIcon field="description"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateName">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Name
+                        <p-sortIcon field="candidateName"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateEmail">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Email
+                        <p-sortIcon field="candidateEmail"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidatePhone">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Phone
+                        <p-sortIcon field="candidatePhone"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateGender">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Gender
+                        <p-sortIcon field="candidateGender"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="status">
+                    <div class="flex justify-content-between align-items-center">
+                        Status
+                        <p-sortIcon field="status"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="priority">
+                    <div class="flex justify-content-between align-items-center">
+                        Priority
+                        <p-sortIcon field="priority"></p-sortIcon>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cases2>
+            <tr class="p-selectable-row">
+                <!-- <td>
+                        <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                    </td> -->
+                <!-- <td>
+                        <span class="p-column-title">Actions</span>
+                        <div class="btn-group" dropdown>
+                            <button id="button-animated" dropdownToggle type="button"
+                                class="btn btn-primary dropdown-toggle" aria-controls="dropdown-animated">
+                                Button dropdown <span class="caret"></span>
+                            </button>
+                            <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu"
+                                aria-labelledby="button-animated">
+                                <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                                <li role="menuitem"><a class="dropdown-item" href="#">Another action</a>
+                                </li>
+                                <li role="menuitem"><a class="dropdown-item" href="#">Something else
+                                        here</a></li>
+                            </ul>
+                        </div>
+                    </td> -->
+                <td>
+                    <span class="p-column-title">Supervisor</span>
+                    {{cases2.supervisor}}
+                </td>
+                <td>
+                    <span class="p-column-title">Type</span>
+                    {{cases2.type}}
+                </td>
+                <td>
+                    <span class="p-column-title">Subject</span>
+                    {{cases2.subject}}
+                </td>
+                <td>
+                    <span class="p-column-title">Description</span>
+                    {{cases2.description}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Name</span>
+                    {{cases2.candidateName}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Email</span>
+                    {{cases2.candidateEmail}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Phone</span>
+                    {{cases2.candidatePhone}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Gender</span>
+                    {{cases2.candidateGender}}
+                </td>
+                <td>
+                    <span class="p-column-title">Status</span>
+                    <!-- {{cases.status}} -->
+                    <span class="badge bg-secondary" *ngIf="cases2.status === 'Pending'">{{'Pending'}}</span>
+                    <span class="badge bg-success" *ngIf="cases2.status === 'Approved'">{{'Approved'}}</span>
+                    <span class="badge bg-danger" *ngIf="cases2.status === 'Rejected'">{{'Rejected'}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Priority</span>
+                    <!-- {{cases.priority}} -->
+                    <span class="badge bg-danger" *ngIf="cases2.priority === 'High'">{{'High'}}</span>
+                    <span class="badge bg-dark" *ngIf="cases2.priority === 'Medium'">{{'Medium'}}</span>
+                    <span class="badge bg-secondary" *ngIf="cases2.priority === 'Low'">{{'Low'}}</span>
+                </td>
+                <!-- <td>
+                        <span class="p-column-title">Date</span>
+                        {{customer.date | date: 'MM/dd/yyyy'}}
+                    </td>
+                    <td>
+                        {{customer.balance | currency:'USD':'symbol'}}
+                    </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No cases found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</main>

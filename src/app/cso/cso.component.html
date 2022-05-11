@@ -1,0 +1,299 @@
+<nav class="navbar navbar-expand-md fixed-top">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/"><span class="badge-logo">A</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <!-- <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li> -->
+            </ul>
+            <div class="d-flex">
+                <h6 class="mt-2">Welcome back, CSO</h6>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container main">
+    <div class="mb-2">
+        <p-button (click)="showModalDialog()" label="Add New Case" icon="pi pi-plus"></p-button>
+    </div>
+    <p-dialog header="Add New Case" [(visible)]="displayModal" [modal]="true" [breakpoints]="{'960px': '75vw'}"
+        [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+        <form #caseForm="ngForm" novalidate>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="CaseSubject">{{"Case Subject"}} *</label>
+                        <input id="CaseSubject" #CaseSubjectInput="ngModel" type="text" name="CaseSubject"
+                            class="form-control" [(ngModel)]="caseSubject" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="CaseType">{{"Case Type"}} *</label>
+                        <ng-select [(ngModel)]="caseType" #CaseTypeInput="ngModel" name="CaseType"
+                            [closeOnSelect]="true" [clearable]="false" [searchable]="true" required>
+                            <ng-option [value]="'case1'">
+                                Case 1
+                            </ng-option>
+                            <ng-option [value]="'case2'">
+                                Case 2
+                            </ng-option>
+                            <ng-option [value]="'case3'">
+                                Case 3
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="CasePriority">{{"Case Priority"}} *</label>
+                        <ng-select [(ngModel)]="casePriority" #CasePriorityInput="ngModel" name="CasePriority"
+                            [closeOnSelect]="true" [clearable]="false" [searchable]="true" required>
+                            <ng-option [value]="'high'">
+                                High
+                            </ng-option>
+                            <ng-option [value]="'medium'">
+                                Medium
+                            </ng-option>
+                            <ng-option [value]="'low'">
+                                Low
+                            </ng-option>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="CaseDescription">{{"Case Description"}} *</label>
+                        <textarea id="CaseDescription" #CaseDescriptionInput="ngModel" type="text"
+                            name="CaseDescription" class="form-control" [(ngModel)]="caseDescription" maxlength="200"
+                            rows="4" required></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-block">
+                <h5 class="border-header">
+                    {{"Candidate Information"}}
+                </h5>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="candidateName">{{"Name"}} *</label>
+                            <input id="candidateName" #candidateNameInput="ngModel" type="text" name="candidateName"
+                                class="form-control" [(ngModel)]="candidateName" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="email">{{"Email"}} *</label>
+                            <input id="email" #emailInput="ngModel" type="email" name="email" class="form-control"
+                                [(ngModel)]="email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="phone">{{"Phone Number"}} *</label>
+                            <input id="phone" #phoneInput="ngModel" type="text" name="phone" class="form-control"
+                                [(ngModel)]="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="gender">{{"Gender"}} *</label>
+                            <ng-select [(ngModel)]="gender" #genderInput="ngModel" name="gender" [closeOnSelect]="true"
+                                [clearable]="false" [searchable]="true" required>
+                                <ng-option [value]="'male'">
+                                    Male
+                                </ng-option>
+                                <ng-option [value]="'female'">
+                                    Female
+                                </ng-option>
+                            </ng-select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <ng-template pTemplate="footer">
+            <p-button type="submit" icon="pi pi-check" label="Submit" styleClass="p-button-text"
+                [disabled]="!caseForm.form.valid" (onClick)="submit(caseForm)"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <p-dialog header="" [(visible)]="displayModal2" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+        [resizable]="false">
+        <p class="m-0 text-center">Case Submitted Successfully!
+        </p>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayModal2=false" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
+    <!-- [(selection)]=" selectedCustomers" dataKey="id" -->
+    <p-table #dt [value]="cases" styleClass="p-datatable-customers" [rowHover]="true" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0" [resizableColumns]="true" [autoLayout]="true"
+        [globalFilterFields]="['type','subject','description','candidateName','candidateEmail','candidatePhone','candidateGender','priority','status']">
+        <ng-template pTemplate="caption">
+            <div class="table-header row align-items-center">
+                <div class="col-lg-6 col-sm-12">
+                    <h4 style="color: #c9296d;">Submitted Cases</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 text-end">
+                    <span class="p-input-icon-left" style="text-align: right;">
+                        <i class="pi pi-search"></i>
+                        <!-- (input)="dt.filterGlobal($event.target.value, 'contains')" -->
+                        <input pInputText type="text" placeholder="Global Search" />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th> -->
+                <th pSortableColumn="type">
+                    <div class="flex justify-content-between align-items-center">
+                        Type
+                        <p-sortIcon field="type"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="subject">
+                    <div class="flex justify-content-between align-items-center">
+                        Subject
+                        <p-sortIcon field="subject"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="description">
+                    <div class="flex justify-content-between align-items-center">
+                        Description
+                        <p-sortIcon field="description"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateName">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Name
+                        <p-sortIcon field="candidateName"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateEmail">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Email
+                        <p-sortIcon field="candidateEmail"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidatePhone">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Phone
+                        <p-sortIcon field="candidatePhone"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="candidateGender">
+                    <div class="flex justify-content-between align-items-center">
+                        Candidate Gender
+                        <p-sortIcon field="candidateGender"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="status">
+                    <div class="flex justify-content-between align-items-center">
+                        Status
+                        <p-sortIcon field="status"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="priority">
+                    <div class="flex justify-content-between align-items-center">
+                        Priority
+                        <p-sortIcon field="priority"></p-sortIcon>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cases>
+            <tr class="p-selectable-row">
+                <!-- <td>
+                    <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                </td> -->
+                <td>
+                    <span class="p-column-title">Type</span>
+                    {{cases.type}}
+                </td>
+                <td>
+                    <span class="p-column-title">Subject</span>
+                    {{cases.subject}}
+                </td>
+                <td>
+                    <span class="p-column-title">Description</span>
+                    {{cases.description}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Name</span>
+                    {{cases.candidateName}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Email</span>
+                    {{cases.candidateEmail}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Phone</span>
+                    {{cases.candidatePhone}}
+                </td>
+                <td>
+                    <span class="p-column-title">Candidate Gender</span>
+                    {{cases.candidateGender}}
+                </td>
+                <td>
+                    <span class="p-column-title">Status</span>
+                    <!-- {{cases.status}} -->
+                    <span class="badge bg-secondary" *ngIf="cases.status === 'Pending'">{{'Pending'}}</span>
+                    <span class="badge bg-success" *ngIf="cases.status === 'Validated'">{{'Validated'}}</span>
+                    <span class="badge bg-danger" *ngIf="cases.status === 'Rejected'">{{'Rejected'}}</span>
+                </td>
+                <td>
+                    <span class="p-column-title">Priority</span>
+                    <!-- {{cases.priority}} -->
+                    <span class="badge bg-danger" *ngIf="cases.priority === 'High'">{{'High'}}</span>
+                    <span class="badge bg-dark" *ngIf="cases.priority === 'Medium'">{{'Medium'}}</span>
+                    <span class="badge bg-secondary" *ngIf="cases.priority === 'Low'">{{'Low'}}</span>
+                </td>
+                <!-- <td>
+                    <span class="p-column-title">Date</span>
+                    {{customer.date | date: 'MM/dd/yyyy'}}
+                </td>
+                <td>
+                    {{customer.balance | currency:'USD':'symbol'}}
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No cases found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</main>
